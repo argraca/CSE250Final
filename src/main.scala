@@ -45,40 +45,130 @@ object main extends App{
         if(movie.genre()(action)){
           actionSum += review
           actionNum += 1
-          user.actionSum += review
-          user.actionNum += 1
+          user.uactionSum += review
+          user.uactionNum += 1
         }
         if(movie.genre()(noir)){
           noirSum += review
           noirNum += 1
-          user.noirSum += review
-          user.noirNum += 1
+          user.unoirSum += review
+          user.unoirNum += 1
         }
         if(movie.genre()(light)){
           lightSum += review
           lightNum += 1
-          user.lightSum += review
-          user.lightNum += 1
+          user.ulightSum += review
+          user.ulightNum += 1
         }
         if(movie.genre()(serious)){
           seriousSum += review
           seriousNum += 1
-          user.seriousSum += review
-          user.seriousNum += 1
+          user.useriousSum += review
+          user.useriousNum += 1
         }
         if(movie.genre()(fantasy)){
           fantasySum += review
           fantasyNum += 1
-          user.fantasySum += review
-          user.fantasyNum += 1
+          user.ufantasySum += review
+          user.ufantasyNum += 1
+        }
+        if(movie.genre()(history)){
+          historySum += review
+          historyNum += 1
+          user.uhistorySum += review
+          user.uhistoryNum += 1
         }
       }
+      preferenceFactor(user)
+      top(user)
     }
-
-
   }
 
-  avg(userBase)  //average of each individual movie, individual genres, and users personal avg for each genre
+  def genreAvg(genre: Int): Float={
+    var rslt: Float = 0
+    if(genre == action){
+      rslt = actionSum/actionNum
+    }
+    if(genre == noir){
+      rslt = noirSum/noirNum
+    }
+    if(genre == light){
+      rslt = lightSum/lightNum
+    }
+    if(genre == serious){
+      rslt = seriousSum/seriousNum
+    }
+    if(genre == fantasy){
+      rslt = fantasySum/fantasyNum
+    }
+    if(genre == history){
+      rslt = historySum/historyNum
+    }
+    rslt
+  }
+
+  def preferenceFactor(input: userNodeHS): Unit ={
+      for(i <- action to history){
+        if(input.genreCheck(i)){
+          input.preferenceFactor(i) = 0
+        }else{
+          val pref = input.genreAvg(i)/genreAvg(i)
+          input.preferenceFactor(i) = pref
+        }
+      }
+  }
+  def top(input: userNodeHS): Unit ={
+    val movieItr = movieBase.begin
+    while(movieItr.hasNext){
+      val movie = movieItr.next()
+      var highest: Float = 0
+      if(movie.genre()(action)){
+        if(movie.avg() * input.preferenceFactor(action) > highest){
+          highest = movie.avg() * input.preferenceFactor(action)
+        }
+      }
+      if(movie.genre()(noir)){
+        if(movie.avg() * input.preferenceFactor(noir) > highest){
+          highest = movie.avg() * input.preferenceFactor(noir)
+        }
+      }
+      if(movie.genre()(light)){
+        if(movie.avg() * input.preferenceFactor(light) > highest){
+          highest = movie.avg() * input.preferenceFactor(light)
+        }
+      }
+      if(movie.genre()(serious)){
+        if(movie.avg() * input.preferenceFactor(serious) > highest){
+          highest = movie.avg() * input.preferenceFactor(serious)
+        }
+      }
+      if(movie.genre()(fantasy)){
+        if(movie.avg() * input.preferenceFactor(fantasy) > highest){
+          highest = movie.avg() * input.preferenceFactor(fantasy)
+        }
+      }
+      if(movie.genre()(history)){
+        if(movie.avg() * input.preferenceFactor(history) > highest){
+          highest = movie.avg() * input.preferenceFactor(history)
+        }
+      }
+      input.top.insert(highest)
+    }
+  }
+  /*def out(user: userNodeHS): Unit={
+    var topList: String =
+    for(i <- 0 to 9){
+
+    }
+  }*/
+
+  avg(userBase) //average of each individual movie, individual genres, and users personal avg for each genre
+  val test = userBase.begin
+  val start = test.next()
+  //print(start.ufantasyNum)
+  //preferenceFactor(userBase)
+
+
 
 
 }

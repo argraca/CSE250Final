@@ -2,58 +2,94 @@ import main.{action, actionNum, actionSum, fantasy, fantasyNum, fantasySum, ligh
 
 class userNodeHS(user: Int){
 
-  var fresh: Boolean = true
+  //var fresh: Boolean = true
   var ratings: Array[(Int, Int)] = Array()
 
-  var preferenceFactor: Map[Int, Int] = Map()
+  var preferenceFactor: Array[Float] = new Array[Float](7)
+  var top: SortedSLL[Float] = new SortedSLL[Float](compare)
+
+  def compare(a:Float, b:Float):Int = b.compare(a)
 
   val action = 1
-  var actionSum = 0
-  var actionNum = 0
+  var uactionSum = 0
+  var uactionNum = 0
 
   val noir = 2
-  var noirSum = 0
-  var noirNum = 0
+  var unoirSum = 0
+  var unoirNum = 0
 
   val light = 3
-  var lightSum = 0
-  var lightNum = 0
+  var ulightSum = 0
+  var ulightNum = 0
 
   val serious = 4
-  var seriousSum = 0
-  var seriousNum = 0
+  var useriousSum = 0
+  var useriousNum = 0
 
   val fantasy = 5
-  var fantasySum = 0
-  var fantasyNum = 0
+  var ufantasySum = 0
+  var ufantasyNum = 0
 
   val history = 6
-  var historySum = 0
-  var historyNum = 0
+  var uhistorySum = 0
+  var uhistoryNum = 0
 
   def user(): Int = user
 
   def genreAvg(genre: Int): Float={
     var rslt: Float = 0
     if(genre == action){
-      rslt = actionSum/actionNum
+      rslt = uactionSum/uactionNum
     }
     if(genre == noir){
-      rslt = noirSum/noirNum
+      rslt = unoirSum/unoirNum
     }
     if(genre == light){
-      rslt = lightSum/lightNum
+      rslt = ulightSum/ulightNum
     }
     if(genre == serious){
-      rslt = seriousSum/seriousNum
+      rslt = useriousSum/useriousNum
     }
     if(genre == fantasy){
-      rslt = fantasySum/fantasyNum
+      rslt = ufantasySum/ufantasyNum
     }
     if(genre == history){
-      rslt = historySum/historyNum
+      rslt = uhistorySum/uhistoryNum
     }
     rslt
   }
-
+  def genreCheck(genre: Int): Boolean={
+    var rslt = false
+    if(genre == action){
+      if(uactionNum == 0){
+        rslt = true
+      }
+    }
+    if(genre == noir){
+      if(unoirNum == 0){
+        rslt = true
+      }
+    }
+    if(genre == light){
+      if(ulightNum == 0){
+        rslt = true
+      }
+    }
+    if(genre == serious){
+      if(useriousNum == 0){
+        rslt = true
+      }
+    }
+    if(genre == fantasy){
+      if(ufantasyNum == 0){
+        rslt = true
+      }
+    }
+    if(genre == history){
+      if(uhistoryNum == 0){
+        rslt = true
+      }
+    }
+    rslt
+  }
 }
