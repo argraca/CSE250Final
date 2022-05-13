@@ -1,5 +1,8 @@
 class movieBaseNodeAG(i:Int, t:String, y:Int, g:Set[Int]){
-  val avg: Double = -1.0
+
+  var sum: Int = 0
+  var num: Int = 0
+
   def display(): Unit={
     print("Index is " + i + '\n')
     print("Title is " + t + '\n')
@@ -9,6 +12,7 @@ class movieBaseNodeAG(i:Int, t:String, y:Int, g:Set[Int]){
 
   def index():Int = i
   def genre():Set[Int] = g
+  def avg(): Float = sum/num
 
   /*We are intending to use a wrapper for the movie and user bases to communicate.
   The movie base will hold the index, title, year, genre, and average rating after being calculated in our wrapper class.

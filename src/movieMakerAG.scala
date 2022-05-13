@@ -85,10 +85,10 @@ object movieMakerAG extends App{
 
   def compare(a:movieBaseNodeAG, b:movieBaseNodeAG):Int = a.index().compare(b.index())
 
-  val inputFile = "u.item"
+  //val inputFile = "u.item"
 
-  val out: AIOLI[movieBaseNodeAG] = processor(inputFile)
+  //val out: AIOLI[movieBaseNodeAG] = processor(inputFile)
 
-  print(out.size)
+  //print(out.size)
 
 }
